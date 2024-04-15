@@ -1,0 +1,18 @@
+services:
+
+  postgres:
+    container_name: postgres
+    image: postgres
+    environment:
+      POSTGRES_USER: shuaibu
+      POSTGRES_PASSWORD: password
+      PGDATA: /data/postgres
+    volumes:
+      - db:/data/postgres
+    ports:
+      - "5432:5432" 
+    restart: unless-stopped
+
+
+volumes:
+  db:
