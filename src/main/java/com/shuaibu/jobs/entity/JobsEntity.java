@@ -25,7 +25,6 @@ public class JobsEntity {
 
     private String jobTitle;
     private String companyName;
-    private String companyLogo;
     private String location;
     private String jobType;
     private String salaryRange;

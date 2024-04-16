@@ -41,7 +41,6 @@ public class JobsImpl implements JobsInterface {
 
         entity.setJobTitle(dto.getJobTitle());
         entity.setCompanyName(dto.getCompanyName());
-        entity.setCompanyLogo(dto.getCompanyLogo());
         entity.setLocation(dto.getLocation());
         entity.setJobType(dto.getJobType());
         entity.setSalaryRange(dto.getSalaryRange());
@@ -85,7 +84,6 @@ public class JobsImpl implements JobsInterface {
 
         dto.setJobTitle(jobsEntity.getJobTitle());
         dto.setCompanyName(jobsEntity.getCompanyName());
-        dto.setCompanyLogo(jobsEntity.getCompanyLogo());
         dto.setLocation(jobsEntity.getLocation());
         dto.setJobType(jobsEntity.getJobType());
         dto.setSalaryRange(jobsEntity.getSalaryRange());
@@ -107,7 +105,6 @@ public class JobsImpl implements JobsInterface {
 
         entity.setJobTitle(jobsDto.getJobTitle());
         entity.setCompanyName(jobsDto.getCompanyName());
-        entity.setCompanyLogo(jobsDto.getCompanyLogo());
         entity.setLocation(jobsDto.getLocation());
         entity.setJobType(jobsDto.getJobType());
         entity.setSalaryRange(jobsDto.getSalaryRange());

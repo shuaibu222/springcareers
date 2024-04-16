@@ -34,9 +34,8 @@ public class CandidatesImpl implements CandidatesInterface {
     }
 
     public CandidatesDto getById(Integer id) {
-        CandidatesEntity entity = candidatesRepo.findById(id).orElseThrow();
 
-        return mapToDto(entity);
+        return mapToDto(candidatesRepo.findById(id).orElseThrow());
     }
 
     public CandidatesDto updateById(Integer id, CandidatesDto dto) {
