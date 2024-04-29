@@ -90,6 +90,7 @@ public class CandidatesImpl implements CandidatesInterface {
         entity.setSkills(dto.getSkills());
         entity.setPreferences(dto.getPreferences());
         entity.setSavedJobs(dto.getSavedJobs());
+        entity.setProfilePicture(dto.getProfilePicture());
 
         return mapToDto(candidatesRepo.save(entity));
 
@@ -156,6 +157,7 @@ public class CandidatesImpl implements CandidatesInterface {
         candidatesEntity.setSkills(dto.getSkills());
         candidatesEntity.setPreferences(dto.getPreferences());
         candidatesEntity.setSavedJobs(dto.getSavedJobs());
+        candidatesEntity.setProfilePicture(dto.getProfilePicture());
 
         return candidatesEntity;
     }
@@ -207,6 +209,7 @@ public class CandidatesImpl implements CandidatesInterface {
         candidatesDto.setSkills(candidatesEntity.getSkills());
         candidatesDto.setPreferences(candidatesEntity.getPreferences());
         candidatesDto.setSavedJobs(candidatesEntity.getSavedJobs());
+        candidatesDto.setProfilePicture(candidatesEntity.getProfilePicture());
 
         return candidatesDto;
     }

@@ -24,10 +24,10 @@ public class JobsDto {
     private String jobDesc;
     private List<String> requiredSkills;
     private String experienceLevel;
-    private String employmentStatus;
+    private String jobStatus;
     private String benefits;
     private String postedAt;
     private String deadline;
-    private List<String> applyContactInfo;
+    private String applyContactInfo;
 
 }

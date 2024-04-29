@@ -42,4 +42,5 @@ public class CandidatesEntity {
     private List<String> skills;
     private List<String> preferences;
     private List<String> savedJobs;
+    private String profilePicture;
 }
