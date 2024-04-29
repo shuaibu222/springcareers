@@ -32,6 +32,6 @@ public class CandidatesDto {
     private List<String> skills;
     private List<String> preferences;
     private List<String> savedJobs;
-    
+    private String profilePicture;
 }
 

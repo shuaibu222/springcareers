@@ -1,11 +1,11 @@
 package com.shuaibu.jobs.service.impl;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.shuaibu.jobs.entity.JobsEntity;
+import com.shuaibu.jobs.entity.JobsResponse;
 import com.shuaibu.jobs.repository.JobsRepo;
 import com.shuaibu.jobs.service.JobsInterface;
 import com.shuaibu.jobs.service.dto.JobsDto;
@@ -47,7 +47,7 @@ public class JobsImpl implements JobsInterface {
         entity.setJobDesc(dto.getJobDesc());
         entity.setRequiredSkills(dto.getRequiredSkills());
         entity.setExperienceLevel(dto.getExperienceLevel());
-        entity.setEmploymentStatus(dto.getEmploymentStatus());
+        entity.setJobStatus(dto.getJobStatus());
         entity.setBenefits(dto.getBenefits());
         entity.setPostedAt(dto.getPostedAt());
         entity.setDeadline(dto.getDeadline());
@@ -67,16 +67,24 @@ public class JobsImpl implements JobsInterface {
 
 
     @Override
-    public List<JobsDto> getAll() {
-        Iterable<JobsEntity> jobsEntity = jobsRepo.findAll();
+    public JobsResponse getAll(Pageable pageable) {
+        var jobsEntity = this.jobsRepo.findAll(pageable);
         
-        List<JobsDto> jDtos = new ArrayList<>();
+        return buildResponse(jobsEntity);
+    }
 
-        for(JobsEntity j : jobsEntity){
-            jDtos.add(mapToDto(j));
-        }
+    // ------------ UTILS ------------ //
 
-        return jDtos;
+    @SuppressWarnings({ "unchecked", "rawtypes" })
+    private JobsResponse buildResponse(Page jobPage) {
+        return JobsResponse.builder()
+                .pageNumber(jobPage.getNumber() + 1)
+                .pageSize(jobPage.getSize())
+                .totalElements(jobPage.getTotalElements())
+                .totalPages(jobPage.getTotalPages())
+                .jobsEntity(jobPage.toList())
+                .isLastPage(jobPage.isLast())
+                .build();
     }
 
     private JobsDto mapToDto(JobsEntity jobsEntity) {
@@ -90,7 +98,7 @@ public class JobsImpl implements JobsInterface {
         dto.setJobDesc(jobsEntity.getJobDesc());
         dto.setRequiredSkills(jobsEntity.getRequiredSkills());
         dto.setExperienceLevel(jobsEntity.getExperienceLevel());
-        dto.setEmploymentStatus(jobsEntity.getEmploymentStatus());
+        dto.setJobStatus(jobsEntity.getJobStatus());
         dto.setBenefits(jobsEntity.getBenefits());
         dto.setPostedAt(jobsEntity.getPostedAt());
         dto.setDeadline(jobsEntity.getDeadline());
@@ -111,7 +119,7 @@ public class JobsImpl implements JobsInterface {
         entity.setJobDesc(jobsDto.getJobDesc());
         entity.setRequiredSkills(jobsDto.getRequiredSkills());
         entity.setExperienceLevel(jobsDto.getExperienceLevel());
-        entity.setEmploymentStatus(jobsDto.getEmploymentStatus());
+        entity.setJobStatus(jobsDto.getJobStatus());
         entity.setBenefits(jobsDto.getBenefits());
         entity.setPostedAt(jobsDto.getPostedAt());
         entity.setDeadline(jobsDto.getDeadline());
