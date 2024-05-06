@@ -18,7 +18,7 @@ import java.util.concurrent.TimeUnit;
 @RequiredArgsConstructor
 public class AppRunner implements CommandLineRunner {
 
-    private static final int NUMBER_OF_JOBS = 50;
+    private static final int NUMBER_OF_JOBS = 20;
     private final JobsRepo repository;
 
     @Override
