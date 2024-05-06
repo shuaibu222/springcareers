@@ -23,7 +23,7 @@ public class FolderCreator implements ApplicationRunner {
         String directoryPath = userHome + File.separator + DIRECTORY_NAME;
 
         // Create the directory if it does not exist
-        File directory = new File(directoryPath);
+        directory = new File(directoryPath);
 
         if (!directory.exists()) {
             if (directory.mkdirs()) {
@@ -31,19 +31,33 @@ public class FolderCreator implements ApplicationRunner {
             } else {
                 System.err.println("Failed to create directory!");
             }
+        } else {
+            System.out.println("Directory already exists.");
         }
+
+
+        // Add shutdown hook to delete the directory when application stops
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+            if (directory.exists()) {
+                deleteDirectory(directory);
+            }
+        }));
     }
 
-    @PreDestroy
-    public void deleteDirectory() {
-        // Delete the directory and its content when the application is shutting down
-        if (directory != null && directory.exists()) {
-            if (directory.delete()) {
-                System.out.println("Directory deleted successfully.");
-            } else {
-                System.err.println("Failed to delete directory!");
+    // Recursive function to delete directory and its contents
+    private void deleteDirectory(File dir) {
+        File[] files = dir.listFiles();
+        if (files != null) {
+            for (File file : files) {
+                if (file.isDirectory()) {
+                    deleteDirectory(file);
+                } else {
+                    file.delete();
+                }
             }
         }
+        dir.delete();
+        System.out.println("Directory deleted successfully.");
     }
 }
 
