@@ -1,8 +1,17 @@
 package com.shuaibu.recruiters.service.impl;
 
-import org.springframework.stereotype.Service;
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.shuaibu.recruiters.entity.FileData;
 import com.shuaibu.recruiters.entity.RecruitersEntity;
+import com.shuaibu.recruiters.repository.ImageRepository;
 import com.shuaibu.recruiters.repository.RecruitersRepo;
 import com.shuaibu.recruiters.service.RecruitersInterface;
 import com.shuaibu.recruiters.service.dto.RecruitersDto;
@@ -11,6 +20,11 @@ import com.shuaibu.recruiters.service.dto.RecruitersDto;
 public class RecruitersImpl implements RecruitersInterface {
     
     private RecruitersRepo recruitersRepo;
+
+    @Autowired
+    private ImageRepository imageRepository;
+
+    private static final String DIRECTORY_NAME = "springimages";
 
     public RecruitersImpl(RecruitersRepo recruitersRepo) {
         this.recruitersRepo = recruitersRepo;
@@ -52,6 +66,42 @@ public class RecruitersImpl implements RecruitersInterface {
         recruitersRepo.deleteById(id);
 
         return "Deleted successfully!";
+    }
+
+    // ------- Logo upload methods --------- //
+
+    @SuppressWarnings("unused")
+    public String uploadImage(MultipartFile file, Integer companyId) throws IOException {
+        // Get the user's home directory
+        String userHome = System.getProperty("user.home");
+
+        // Create the directory path using the file separator
+        String directoryPath = userHome + File.separator + DIRECTORY_NAME;
+        
+        String filePath = directoryPath + "/" + file.getOriginalFilename();
+
+        FileData fileData = imageRepository.save(FileData.builder()
+        .companyId(companyId)
+        .name(file.getOriginalFilename())
+        .type(file.getContentType())
+        .filePath(filePath)
+        .build());
+
+        file.transferTo(new File(filePath));
+
+        if (fileData != null) {
+            return "Image Uploaded Successfully: " + filePath;
+        }
+
+        return null;
+    }
+
+    public byte[] downloadImageFromFileSystem(Integer cId) throws IOException {
+
+        Optional<FileData> fileData = imageRepository.findByCompanyId(cId);
+        String filePath = fileData.get().getFilePath();
+        byte[] images = Files.readAllBytes(new File(filePath).toPath());
+        return images;
     }
 
     /*

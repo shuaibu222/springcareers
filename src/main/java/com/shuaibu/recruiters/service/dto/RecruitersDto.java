@@ -1,8 +1,11 @@
 package com.shuaibu.recruiters.service.dto;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -15,7 +18,7 @@ import lombok.NoArgsConstructor;
 public class RecruitersDto {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     
     private String companyName;
@@ -29,5 +32,4 @@ public class RecruitersDto {
     private String[] employees;
     private String[] socialMedia;
     private String contactEmail;
-    
 }
