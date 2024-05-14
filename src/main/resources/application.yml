@@ -14,3 +14,13 @@ spring:
       hibernate:
         format_sql: true
     show-sql: true
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            clientId: Iv1.0e501b1cad86e92e
+            clientSecret: 13f9fea80e8d006b41df53aa0cc38a46a6ad6e00
+          google:
+            clientId: 983311459420-4m2fd5fo60dtnhd424l1p4j4njn947fm.apps.googleusercontent.com
+            clientSecret: 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

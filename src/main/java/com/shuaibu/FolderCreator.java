@@ -4,8 +4,6 @@ import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
 
-import jakarta.annotation.PreDestroy;
-
 import java.io.File;
 
 @Component
@@ -56,6 +54,7 @@ public class FolderCreator implements ApplicationRunner {
                 }
             }
         }
+        // if the dir is empty, then delete
         dir.delete();
         System.out.println("Directory deleted successfully.");
     }

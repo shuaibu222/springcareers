@@ -45,7 +45,7 @@ public class JobsController {
         return new ResponseEntity<>(jobsInterface.getAll(pageRequestData), HttpStatus.PARTIAL_CONTENT);
     }
 
-    @GetMapping("/api/v1/jobs/{id}")
+    @GetMapping("/api/v1/jobs/get/{id}")
     public ResponseEntity<JobsDto> getSingleJob(@PathVariable Integer id) {
         return ResponseEntity.ok(jobsInterface.getById(id));
     }

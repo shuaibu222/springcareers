@@ -37,7 +37,7 @@ public class RecruitersController {
     }
     
     
-    @GetMapping("/api/v1/recruiters/{id}")
+    @GetMapping("/api/v1/recruiters/get/{id}")
     public ResponseEntity<RecruitersDto> getCompanyById(@PathVariable int id) {
         return new ResponseEntity<RecruitersDto>(recruitersImpl.getById(id), HttpStatus.OK);
     }
@@ -59,7 +59,7 @@ public class RecruitersController {
 				.body(uploadImage);
 	}
 
-    @GetMapping("/api/v1/recruiters/image/download/{id}")
+    @GetMapping("/api/v1/recruiters/image/view/{id}")
     public ResponseEntity<?> getCompanyLogo(@PathVariable Integer id) throws IOException {
         byte[] imageData = recruitersImpl.downloadImageFromFileSystem(id);
 		return ResponseEntity.status(HttpStatus.OK)
